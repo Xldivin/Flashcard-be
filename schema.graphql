@@ -15,8 +15,10 @@ type FlashCard {
 }
 
 type Mutation {
+  delete(id: Int!): FlashCard!
   login(email: String!, password: String!): AuthPayload!
   post(answer: String!, description: String!, question: String!): FlashCard!
+  put(answer: String!, description: String!, id: Int!, question: String!): FlashCard!
   signup(email: String!, name: String!, password: String!): AuthPayload!
 }
 

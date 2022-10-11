@@ -69,8 +69,10 @@ export interface NexusGenFieldTypes {
     question: string; // String!
   }
   Mutation: { // field return type
+    delete: NexusGenRootTypes['FlashCard']; // FlashCard!
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     post: NexusGenRootTypes['FlashCard']; // FlashCard!
+    put: NexusGenRootTypes['FlashCard']; // FlashCard!
     signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
   }
   Query: { // field return type
@@ -95,8 +97,10 @@ export interface NexusGenFieldTypeNames {
     question: 'String'
   }
   Mutation: { // field return type name
+    delete: 'FlashCard'
     login: 'AuthPayload'
     post: 'FlashCard'
+    put: 'FlashCard'
     signup: 'AuthPayload'
   }
   Query: { // field return type name
@@ -111,6 +115,9 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    delete: { // args
+      id: number; // Int!
+    }
     login: { // args
       email: string; // String!
       password: string; // String!
@@ -118,6 +125,12 @@ export interface NexusGenArgTypes {
     post: { // args
       answer: string; // String!
       description: string; // String!
+      question: string; // String!
+    }
+    put: { // args
+      answer: string; // String!
+      description: string; // String!
+      id: number; // Int!
       question: string; // String!
     }
     signup: { // args

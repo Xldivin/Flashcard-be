@@ -1,4 +1,4 @@
-import { extendType, objectType,  nonNull, stringArg } from "nexus";
+import { extendType, objectType,  nonNull, stringArg, intArg  } from "nexus";
 import { NexusGenObjects } from "../../nexus-typegen"; 
 
 export const Flash = objectType({
@@ -35,7 +35,11 @@ export const FlashCardMutation = extendType({
                 answer: nonNull(stringArg())
             },
             
-            resolve(parent, args, context) {    
+            resolve(parent, args, context) {
+                const { userId } = context
+                if(!userId){
+                    throw new Error("Admin are the only one to post flashcard, if you are an admin login please")
+                }
                 const newflashcard = context.prisma.flashcard.create({
                     data:{
                         description:args.description,
@@ -44,6 +48,48 @@ export const FlashCardMutation = extendType({
                     }
                 });
                 return newflashcard
+            },
+        });
+        t.nonNull.field("put", {
+            type: "FlashCard",
+            args: {
+                description: nonNull(stringArg()),
+                question: nonNull(stringArg()),
+                answer:nonNull(stringArg()),
+                id: nonNull(intArg())
+            },
+            resolve(parent,args,context) {
+                const { userId } = context
+                if(!userId){
+                    throw new Error("Admin are the only one to update a flash card, if you are an admin login please")
+                }
+                const { description, answer,question,id } = args;  
+                const updatedFlash:any = context.prisma.flashcard.update({
+                    where: {id: args.id},
+                    data: {
+                        description: args.description,
+                        question: args.answer,
+                        answer: args.question,
+                      },
+                });
+                return updatedFlash
+            }
+        });
+        t.nonNull.field("delete", {  
+            type: "FlashCard",  
+            args: {   
+                id: nonNull(intArg()),
+            },
+            
+            resolve(parent, args, context) {  
+                const { userId } = context
+                if(!userId){
+                    throw new Error("Admin are the only one to delete a flash card, if you are an admin login please")
+                }  
+                const { id } = args; 
+                return context.prisma.flashcard.delete({
+                where:{id:args.id}
+                })
             },
         });
     },
