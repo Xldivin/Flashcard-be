@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev --transpile-only --no-notify --exit-child src/index.ts",
+    "build": "prisma generate && npm run generate && tsc",
     "generate": "ts-node --transpile-only src/schema.ts",
     "migrations": "npx prisma migrate dev --name init"
   },

@@ -1,13 +1,16 @@
 import { schema } from "./schema";
 import { context } from "./context";
 import { ApolloServer } from "apollo-server";
+import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core"
 
 export const server = new ApolloServer({
     schema,
-    context
+    context,
+    introspection: true,                                     
+    plugins: [ApolloServerPluginLandingPageLocalDefault()],
 });
 
-const port = 3000;
+const port = process.env.PORT || 3000;  
 
 
 
