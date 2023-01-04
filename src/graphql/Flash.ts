@@ -36,10 +36,10 @@ export const FlashCardMutation = extendType({
             },
             
             resolve(parent, args, context) {
-                const { userId } = context
-                if(!userId){
-                    throw new Error("Admin are the only one to post flashcard, if you are an admin login please")
-                }
+                // const { userId } = context
+                // if(!userId){
+                //     throw new Error("Admin are the only one to post flashcard, if you are an admin login please")
+                // }
                 const newflashcard = context.prisma.flashcard.create({
                     data:{
                         description:args.description,
@@ -59,10 +59,10 @@ export const FlashCardMutation = extendType({
                 id: nonNull(intArg())
             },
             resolve(parent,args,context) {
-                const { userId } = context
-                if(!userId){
-                    throw new Error("Admin are the only one to update a flash card, if you are an admin login please")
-                }
+                // const { userId } = context
+                // if(!userId){
+                //     throw new Error("Admin are the only one to update a flash card, if you are an admin login please")
+                // }
                 const { description, answer,question,id } = args;  
                 const updatedFlash:any = context.prisma.flashcard.update({
                     where: {id: args.id},
